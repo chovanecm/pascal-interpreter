@@ -14,26 +14,26 @@ public class Parenties implements Expression {
 		setExpression(expression);
 	}
 
-	public Expression evalute() {
-		return getExpression().evalute();
-	}
+    public Expression evaluate() {
+        return getExpression().evaluate();
+    }
 
 	public Object getValue() throws UnknowExpressionTypeException, NotUsableOperatorException {
-		return evalute().getValue();
-	}
+        return evaluate().getValue();
+    }
 
 	public Expression getExpression() {
 		return expression;
 	}
+
+    public void setExpression(Expression expression) {
+        this.expression = expression;
+    }
 
 	public String toString() {
 		StringBuilder info;
 		info = new StringBuilder("(").append(expression).append(")");
 
 		return info.toString();
-	}
-
-	public void setExpression(Expression expression) {
-		this.expression = expression;
 	}
 }

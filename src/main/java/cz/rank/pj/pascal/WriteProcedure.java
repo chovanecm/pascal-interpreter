@@ -2,8 +2,7 @@ package cz.rank.pj.pascal;
 
 import cz.rank.pj.pascal.operator.NotUsableOperatorException;
 
-import java.util.Enumeration;
-import java.util.Vector;
+import java.util.List;
 
 /**
  * User: karl
@@ -15,19 +14,19 @@ public class WriteProcedure extends Procedure {
 		return new WriteProcedure();
 	}
 
-	public void setParameters(Vector<Expression> parameters) throws NotEnoughtParametersException {
-		if (parameters == null) {
+    @Override
+    public void setParameters(List<Expression> parameters) throws NotEnoughtParametersException {
+        if (parameters == null) {
 			throw new NotEnoughtParametersException("Calling 'write' without parameter has no sence!");
 		}
 
 		super.setParameters(parameters);	//To change body of overridden methods use File | Settings | File Templates.
 	}
 
-	public void execute() throws UnknowExpressionTypeException, NotUsableOperatorException {
-		Enumeration parametersEnumeration = parameters.elements();
-
-		while (parametersEnumeration.hasMoreElements()) {
-			System.out.print(parametersEnumeration.nextElement());
-		}
-	}
+    @Override
+    public void execute() throws UnknowExpressionTypeException, NotUsableOperatorException {
+        for (Expression ex : parameters) {
+            System.out.println(ex);
+        }
+    }
 }

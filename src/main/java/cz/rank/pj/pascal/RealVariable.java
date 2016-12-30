@@ -26,26 +26,26 @@ public class RealVariable extends Variable {
 		return null;
 	}
 
+    public void setString(String value) {
+    }
+
 	public Integer getInteger() {
 		return null;
 	}
 
+    public void setInteger(Integer value) {
+    }
+
 	public Double getReal() {
 		return (Double) value;
-	}
-
-	public void setString(String value) {
-	}
-
-	public void setInteger(Integer value) {
 	}
 
 	public void setReal(Double value) {
 		this.value = value;
 	}
 
-	public Expression evalute() {
-		return null;
+    public Expression evaluate() {
+        return null;
 	}
 
 	public Object getValue() {

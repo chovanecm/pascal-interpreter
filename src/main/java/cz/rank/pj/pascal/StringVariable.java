@@ -28,26 +28,26 @@ public class StringVariable extends Variable {
 		return value;
 	}
 
+    public void setString(String value) {
+        this.value = value;
+    }
+
 	public Integer getInteger() {
 		return null;
 	}
+
+    public void setInteger(Integer value) {
+    }
 
 	public Double getReal() {
 		return null;
 	}
 
-	public void setString(String value) {
-		this.value = value;
-	}
-
-	public void setInteger(Integer value) {
-	}
-
 	public void setReal(Double value) {
 	}
 
-	public Expression evalute() {
-		return null;
+    public Expression evaluate() {
+        return null;
 	}
 
 	public Object getValue() {

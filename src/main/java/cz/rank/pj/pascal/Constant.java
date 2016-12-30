@@ -12,7 +12,7 @@ public class Constant implements Expression {
 		setValue(value);
 	}
 
-	public Expression evalute() {
+	public Expression evaluate() {
 		return this;
 	}
 

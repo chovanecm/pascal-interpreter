@@ -11,17 +11,17 @@ public abstract class Variable implements Expression {
 
 	abstract String getString();
 
-	public Expression evalute() {
-		return this;
+    abstract void setString(String value);
+
+    public Expression evaluate() {
+        return this;
 	}
 
 	public abstract Integer getInteger();
 
-	abstract Double getReal();
-
-	abstract void setString(String value);
-
 	abstract void setInteger(Integer value);
+
+    abstract Double getReal();
 
 	abstract void setReal(Double value);
 
@@ -42,11 +42,11 @@ public abstract class Variable implements Expression {
 		return name.hashCode();
 	}
 
-	public void setValue(Object value) {
-		this.value = value;
-	}
-
 	public Object getValue() {
 		return value;
 	}
+
+    public void setValue(Object value) {
+        this.value = value;
+    }
 }

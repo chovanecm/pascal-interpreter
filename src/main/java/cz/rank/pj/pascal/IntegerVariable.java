@@ -34,26 +34,26 @@ public class IntegerVariable extends Variable {
 		return null;
 	}
 
+    public void setString(String value) {
+    }
+
 	public Integer getInteger() {
 		return (Integer) value;
-	}
-
-	public Double getReal() {
-		return null;
-	}
-
-	public void setString(String value) {
 	}
 
 	public void setInteger(Integer value) {
 		this.value = value;
 	}
 
+    public Double getReal() {
+        return null;
+    }
+
 	public void setReal(Double value) {
 	}
 
-	public Expression evalute() {
-		return this;
+    public Expression evaluate() {
+        return this;
 	}
 
 	public Object getValue() {

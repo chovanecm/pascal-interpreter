@@ -8,7 +8,7 @@ import cz.rank.pj.pascal.operator.NotUsableOperatorException;
  * Time: 9:05:33 PM
  */
 abstract public interface Expression {
-	abstract Expression evalute();
+	abstract Expression evaluate();
 
 	abstract Object getValue() throws UnknowExpressionTypeException, NotUsableOperatorException;
 }

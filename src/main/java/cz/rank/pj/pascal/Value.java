@@ -6,8 +6,8 @@ package cz.rank.pj.pascal;
  * Time: 9:35:05 PM
  */
 public class Value implements Expression {
-	public Expression evalute() {
-		return null;
+    public Expression evaluate() {
+        return null;
 	}
 
 	public Object getValue() {

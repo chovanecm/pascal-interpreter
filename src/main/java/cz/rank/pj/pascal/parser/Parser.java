@@ -1,18 +1,19 @@
 package cz.rank.pj.pascal.parser;
 
 import cz.rank.pj.pascal.*;
-import cz.rank.pj.pascal.statement.*;
-import cz.rank.pj.pascal.operator.*;
 import cz.rank.pj.pascal.lexan.LexicalAnalyzator;
 import cz.rank.pj.pascal.lexan.LexicalException;
+import cz.rank.pj.pascal.operator.*;
+import cz.rank.pj.pascal.statement.*;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
-import java.util.Vector;
+import java.util.List;
 
 /**
  * User: karl
@@ -20,17 +21,18 @@ import java.util.Vector;
  * Time: 2:18:09 PM
  */
 public class Parser {
-	LexicalAnalyzator lexan;
-	Token currentToken;
-
-	LinkedHashMap<String, Variable> globalVariables;
-	LinkedHashMap<String, Procedure> globalProcedures;
-
-	private boolean tokenPushed;
-
 	private static Logger logger;
 
+	static {
+		logger = Logger.getLogger(Parser.class);
+	}
+
 	protected Statement entryPoint;
+	LexicalAnalyzator lexan;
+	Token currentToken;
+	LinkedHashMap<String, Variable> globalVariables;
+	LinkedHashMap<String, Procedure> globalProcedures;
+	private boolean tokenPushed;
 
 	public Parser(Reader reader) {
 		this.lexan = new LexicalAnalyzator(reader);
@@ -42,6 +44,19 @@ public class Parser {
 		this.lexan = new LexicalAnalyzator(in);
 
 		initGlobals();
+	}
+
+	static Variable getVariablesCollision(LinkedHashMap<String, Variable> vars1, LinkedHashMap<String, Variable> vars2) {
+		Variable variable = null;
+
+		for (String currentKey : vars1.keySet()) {
+			if (vars2.containsKey(currentKey)) {
+				variable = vars2.get(currentKey);
+				break;
+			}
+		}
+
+		return variable;
 	}
 
 	private void initGlobals() {
@@ -78,10 +93,10 @@ public class Parser {
 	}
 
 	LinkedHashMap<String, Variable> parseVar() throws ParseException, IOException, LexicalException {
-		Vector<Token> variablesNames;
+		List<Token> variablesNames;
 		LinkedHashMap<String, Variable> variables;
 
-		variablesNames = new Vector<Token>();
+		variablesNames = new ArrayList<Token>();
 		variables = new LinkedHashMap<String, Variable>();
 
 		boolean variablesParsed = false;
@@ -192,19 +207,6 @@ public class Parser {
 		return variables;
 	}
 
-	static Variable getVariablesCollision(LinkedHashMap<String, Variable> vars1, LinkedHashMap<String, Variable> vars2) {
-		Variable variable = null;
-
-		for (String currentKey : vars1.keySet()) {
-			if (vars2.containsKey(currentKey)) {
-				variable = vars2.get(currentKey);
-				break;
-			}
-		}
-
-		return variable;
-	}
-
 	public void procedure() {
 
 	}
@@ -271,12 +273,12 @@ public class Parser {
 		return block;
 	}
 
-	private Vector<Expression> parseProcedureParameters() throws IOException, LexicalException, ParseException, UnknowVariableNameException {
+	private List<Expression> parseProcedureParameters() throws IOException, LexicalException, ParseException, UnknowVariableNameException {
 		if (readToken().isRightParentie()) {
 			return null;
 		}
 
-		Vector<Expression> parameters = new Vector<Expression>();
+		List<Expression> parameters = new ArrayList<Expression>();
 
 
 		boolean hasMoreParameters = true;
@@ -695,17 +697,12 @@ public class Parser {
 		}
 	}
 
-
 	public boolean isTokenPushed() {
 		return tokenPushed;
 	}
 
 	public void setTokenPushed(boolean tokenPushed) {
 		this.tokenPushed = tokenPushed;
-	}
-
-	static {
-		logger = Logger.getLogger(Parser.class);
 	}
 
 	public void run() throws UnknowExpressionTypeException, NotUsableOperatorException {

@@ -1,55 +1,50 @@
 package cz.rank.pj.pascal.statement;
 
+import cz.rank.pj.pascal.UnknowExpressionTypeException;
+import cz.rank.pj.pascal.operator.NotUsableOperatorException;
 import org.apache.log4j.Logger;
 
-import java.util.Enumeration;
-import java.util.Vector;
-
-import cz.rank.pj.pascal.operator.NotUsableOperatorException;
-import cz.rank.pj.pascal.UnknowExpressionTypeException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * User: karl
- * Date: Feb 22, 2006
- * Time: 4:09:13 PM
+ * User: karl Date: Feb 22, 2006 Time: 4:09:13 PM
  */
 public class Block implements Statement {
-	Vector<Statement> statements;
 
-	private static Logger logger;
+    private static Logger logger;
 
-	public Block() {
-		statements = new Vector<Statement>();
-	}
-	public void execute() throws UnknowExpressionTypeException, NotUsableOperatorException {
-		Enumeration<Statement> statementsEnumeration = statements.elements();
+    static {
+        logger = Logger.getLogger(Block.class);
+    }
 
-		while (statementsEnumeration.hasMoreElements()) {
-			Statement st = statementsEnumeration.nextElement();
-			logger.debug(st);
-			st.execute();
-			logger.debug(st);
+    List<Statement> statements;
 
-		}
-	}
+    public Block() {
+        statements = new ArrayList<Statement>();
+    }
 
-	public String toString() {
-		StringBuilder info = new StringBuilder("Block[");
+    public void execute() throws UnknowExpressionTypeException, NotUsableOperatorException {
 
-		Enumeration<Statement> st = statements.elements();
+        for (Statement st : statements) {
+            logger.debug(st);
+            st.execute();
+            logger.debug(st);
 
-		while (st.hasMoreElements()) {
-			info.append(st.nextElement());
-		}
+        }
+    }
 
-		return info.append("]").toString();
-	}
+    public String toString() {
+        StringBuilder info = new StringBuilder("Block[");
 
-	public void add(Statement st) {
-		statements.addElement(st);
-	}
+        for (Statement st : statements) {
+            info.append(st);
+        }
 
-	static {
-		logger = Logger.getLogger(Block.class);
-	}
+        return info.append("]").toString();
+    }
+
+    public void add(Statement st) {
+        statements.add(st);
+    }
 }

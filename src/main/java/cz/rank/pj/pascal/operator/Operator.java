@@ -1,9 +1,8 @@
 package cz.rank.pj.pascal.operator;
 
-import org.apache.log4j.Logger;
-import cz.rank.pj.pascal.operator.NotUsableOperatorException;
 import cz.rank.pj.pascal.Expression;
 import cz.rank.pj.pascal.UnknowExpressionTypeException;
+import org.apache.log4j.Logger;
 
 /**
  * User: karl
@@ -11,10 +10,14 @@ import cz.rank.pj.pascal.UnknowExpressionTypeException;
  * Time: 12:26:52 AM
  */
 public abstract class Operator implements Expression {
+    private static Logger logger;
+
+    static {
+        logger = Logger.getLogger(Operator.class);
+    }
+
 	protected Expression right;
 	protected Expression left;
-
-	private static Logger logger;
 
 	public Operator(Expression left, Expression right) {
 		setLeft(left);
@@ -67,11 +70,7 @@ public abstract class Operator implements Expression {
 		this.left = left;
 	}
 
-	public Expression evalute() {
-		return this;
-	}
-
-	static {
-		logger = Logger.getLogger(Operator.class);
+    public Expression evaluate() {
+        return this;
 	}
 }
