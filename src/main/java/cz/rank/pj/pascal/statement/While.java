@@ -1,9 +1,8 @@
 package cz.rank.pj.pascal.statement;
 
-import cz.rank.pj.pascal.operator.NotUsableOperatorException;
-import cz.rank.pj.pascal.statement.Statement;
 import cz.rank.pj.pascal.Expression;
-import cz.rank.pj.pascal.UnknowExpressionTypeException;
+import cz.rank.pj.pascal.UnknownExpressionTypeException;
+import cz.rank.pj.pascal.operator.NotUsableOperatorException;
 
 /**
  * User: karl
@@ -19,8 +18,8 @@ public class While implements Statement {
 		setStatement(statement);
 	}
 
-	public void execute() throws UnknowExpressionTypeException, NotUsableOperatorException {
-		while ((Boolean) expression.getValue()) {
+    public void execute() throws UnknownExpressionTypeException, NotUsableOperatorException {
+        while ((Boolean) expression.getValue()) {
 			statement.execute();
 		}
 	}

@@ -1,6 +1,6 @@
 package cz.rank.pj.pascal.statement;
 
-import cz.rank.pj.pascal.UnknowExpressionTypeException;
+import cz.rank.pj.pascal.UnknownExpressionTypeException;
 import cz.rank.pj.pascal.operator.NotUsableOperatorException;
 import org.apache.log4j.Logger;
 
@@ -24,7 +24,7 @@ public class Block implements Statement {
         statements = new ArrayList<Statement>();
     }
 
-    public void execute() throws UnknowExpressionTypeException, NotUsableOperatorException {
+    public void execute() throws UnknownExpressionTypeException, NotUsableOperatorException {
 
         for (Statement st : statements) {
             logger.debug(st);

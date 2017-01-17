@@ -24,7 +24,7 @@ public class WriteProcedure extends Procedure {
 	}
 
     @Override
-    public void execute() throws UnknowExpressionTypeException, NotUsableOperatorException {
+    public void execute() throws UnknownExpressionTypeException, NotUsableOperatorException {
         for (Expression ex : parameters) {
             System.out.println(ex);
         }

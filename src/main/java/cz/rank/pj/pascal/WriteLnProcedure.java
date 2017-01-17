@@ -8,7 +8,7 @@ import cz.rank.pj.pascal.operator.NotUsableOperatorException;
  */
 public class WriteLnProcedure extends Procedure {
 
-    public void execute() throws UnknowExpressionTypeException, NotUsableOperatorException {
+    public void execute() throws UnknownExpressionTypeException, NotUsableOperatorException {
         if (parameters != null) {
             for (Object o : parameters) {
                 System.out.println(o);

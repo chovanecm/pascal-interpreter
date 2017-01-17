@@ -8,6 +8,7 @@ import cz.rank.pj.pascal.operator.NotUsableOperatorException;
  * Time: 1:40:51 AM
  */
 public interface BoolExpression {
-	boolean isTrue() throws UnknowExpressionTypeException, NotUsableOperatorException;
-	boolean isFalse() throws UnknowExpressionTypeException, NotUsableOperatorException;
+	boolean isTrue() throws UnknownExpressionTypeException, NotUsableOperatorException;
+
+	boolean isFalse() throws UnknownExpressionTypeException, NotUsableOperatorException;
 }

@@ -10,5 +10,5 @@ import cz.rank.pj.pascal.operator.NotUsableOperatorException;
 abstract public interface Expression {
 	abstract Expression evaluate();
 
-	abstract Object getValue() throws UnknowExpressionTypeException, NotUsableOperatorException;
+	abstract Object getValue() throws UnknownExpressionTypeException, NotUsableOperatorException;
 }

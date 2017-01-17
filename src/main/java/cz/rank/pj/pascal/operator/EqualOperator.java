@@ -2,7 +2,7 @@ package cz.rank.pj.pascal.operator;
 
 import cz.rank.pj.pascal.BoolExpression;
 import cz.rank.pj.pascal.Expression;
-import cz.rank.pj.pascal.UnknowExpressionTypeException;
+import cz.rank.pj.pascal.UnknownExpressionTypeException;
 
 /**
  * User: karl
@@ -31,11 +31,11 @@ public class EqualOperator extends Operator implements BoolExpression {
 	}
 
 
-	public boolean isTrue() throws UnknowExpressionTypeException, NotUsableOperatorException {
-		return (Boolean) getValue();
+    public boolean isTrue() throws UnknownExpressionTypeException, NotUsableOperatorException {
+        return (Boolean) getValue();
 	}
 
-	public boolean isFalse() throws UnknowExpressionTypeException, NotUsableOperatorException {
-		return !((Boolean) getValue());
+    public boolean isFalse() throws UnknownExpressionTypeException, NotUsableOperatorException {
+        return !((Boolean) getValue());
 	}
 }

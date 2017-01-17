@@ -29,8 +29,8 @@ public abstract class Procedure implements Statement, Cloneable {
         this.parameters = parameters;
 	}
 
-	public void execute() throws UnknowExpressionTypeException, NotUsableOperatorException {
-		procedureBlock.execute();
+    public void execute() throws UnknownExpressionTypeException, NotUsableOperatorException {
+        procedureBlock.execute();
 	}
 
 	abstract public Object clone() throws CloneNotSupportedException;

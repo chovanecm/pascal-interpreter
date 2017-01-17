@@ -1,12 +1,12 @@
 package cz.rank.pj.pascal.statement;
 
+import cz.rank.pj.pascal.Constant;
+import cz.rank.pj.pascal.Expression;
+import cz.rank.pj.pascal.UnknownExpressionTypeException;
+import cz.rank.pj.pascal.Variable;
 import cz.rank.pj.pascal.operator.LessEqualOperator;
 import cz.rank.pj.pascal.operator.NotUsableOperatorException;
 import cz.rank.pj.pascal.operator.PlusOperator;
-import cz.rank.pj.pascal.Expression;
-import cz.rank.pj.pascal.UnknowExpressionTypeException;
-import cz.rank.pj.pascal.Variable;
-import cz.rank.pj.pascal.Constant;
 
 /**
  * User: karl
@@ -17,8 +17,8 @@ public class ForTo implements Statement {
 	protected Assignment assigmentStatement;
 	protected Expression expression;
 	protected Statement afterCycleStatement;
-	private Statement executeStatement;
 	protected Expression finalExpression;
+    private Statement executeStatement;
 
 	public ForTo(Assignment assigmentStatement, Expression finalExpression, Statement executeStatament) {
 		setAssigmentStatement(assigmentStatement);
@@ -28,8 +28,8 @@ public class ForTo implements Statement {
 		initExpression();
 	}
 
-	public void execute() throws UnknowExpressionTypeException, NotUsableOperatorException {
-		getAssigmentStatement().execute();
+    public void execute() throws UnknownExpressionTypeException, NotUsableOperatorException {
+        getAssigmentStatement().execute();
 
 		while ((Boolean) getExpression().getValue()) {
 			getExecuteStatement().execute();

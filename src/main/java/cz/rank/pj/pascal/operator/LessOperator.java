@@ -1,9 +1,9 @@
 package cz.rank.pj.pascal.operator;
 
-import org.apache.log4j.Logger;
 import cz.rank.pj.pascal.BoolExpression;
 import cz.rank.pj.pascal.Expression;
-import cz.rank.pj.pascal.UnknowExpressionTypeException;
+import cz.rank.pj.pascal.UnknownExpressionTypeException;
+import org.apache.log4j.Logger;
 
 /**
  * User: karl
@@ -12,6 +12,10 @@ import cz.rank.pj.pascal.UnknowExpressionTypeException;
  */
 public class LessOperator extends Operator implements BoolExpression {
 	private static Logger logger;
+
+    static {
+        logger = Logger.getLogger(LessOperator.class);
+    }
 
 	public LessOperator(Expression left, Expression right) {
 		super(left, right);
@@ -34,13 +38,12 @@ public class LessOperator extends Operator implements BoolExpression {
 		throw new NotUsableOperatorException("Can't use operator '<' for booleans!");
 	}
 
-
-	public boolean isTrue() throws UnknowExpressionTypeException, NotUsableOperatorException {
-		return (Boolean) getValue();
+    public boolean isTrue() throws UnknownExpressionTypeException, NotUsableOperatorException {
+        return (Boolean) getValue();
 	}
 
-	public boolean isFalse() throws UnknowExpressionTypeException, NotUsableOperatorException {
-		return !((Boolean) getValue());
+    public boolean isFalse() throws UnknownExpressionTypeException, NotUsableOperatorException {
+        return !((Boolean) getValue());
 	}
 
 	public String toString() {
@@ -48,9 +51,5 @@ public class LessOperator extends Operator implements BoolExpression {
 		info = new StringBuilder().append(left).append("<").append(right);
 
 		return info.toString();
-	}
-
-	static {
-		logger = Logger.getLogger(LessOperator.class);
 	}
 }

@@ -18,8 +18,8 @@ public class Parenties implements Expression {
         return getExpression().evaluate();
     }
 
-	public Object getValue() throws UnknowExpressionTypeException, NotUsableOperatorException {
-        return evaluate().getValue();
+	public Object getValue() throws UnknownExpressionTypeException, NotUsableOperatorException {
+		return evaluate().getValue();
     }
 
 	public Expression getExpression() {

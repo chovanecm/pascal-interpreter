@@ -1,7 +1,7 @@
 package cz.rank.pj.pascal.operator;
 
 import cz.rank.pj.pascal.Expression;
-import cz.rank.pj.pascal.UnknowExpressionTypeException;
+import cz.rank.pj.pascal.UnknownExpressionTypeException;
 import org.apache.log4j.Logger;
 
 /**
@@ -32,7 +32,7 @@ public abstract class Operator implements Expression {
 
 	abstract Object operate(Boolean b1, Boolean b2) throws NotUsableOperatorException;
 
-	public Object getValue() throws UnknowExpressionTypeException, NotUsableOperatorException {
+	public Object getValue() throws UnknownExpressionTypeException, NotUsableOperatorException {
 		logger.debug(left + "|" + right);
 
 		if (left.getValue() instanceof Integer) {
@@ -51,7 +51,7 @@ public abstract class Operator implements Expression {
 			return operate((Boolean) left.getValue(), (Boolean) right.getValue());
 		}
 
-		throw new UnknowExpressionTypeException(right.getValue().getClass().getCanonicalName());
+		throw new UnknownExpressionTypeException(right.getValue().getClass().getCanonicalName());
 	}
 
 	public Expression getRight() {

@@ -215,7 +215,7 @@ public class Parser {
 
 	}
 
-	public Statement mainBegin() throws IOException, ParseException, LexicalException, UnknowVariableNameException, UnknowProcedureNameException, NotEnoughtParametersException {
+	public Statement mainBegin() throws IOException, ParseException, LexicalException, UnknownVariableNameException, UnknownProcedureNameException, NotEnoughtParametersException {
 		Block block = new Block();
 
 		while (!readToken().isEnd()) {
@@ -247,7 +247,7 @@ public class Parser {
 		return block;
 	}
 
-	public Statement parseBegin() throws IOException, ParseException, LexicalException, UnknowVariableNameException, UnknowProcedureNameException, NotEnoughtParametersException {
+	public Statement parseBegin() throws IOException, ParseException, LexicalException, UnknownVariableNameException, UnknownProcedureNameException, NotEnoughtParametersException {
 		Block block = new Block();
 		while (!readToken().isEnd()) {
 
@@ -273,7 +273,7 @@ public class Parser {
 		return block;
 	}
 
-	private List<Expression> parseProcedureParameters() throws IOException, LexicalException, ParseException, UnknowVariableNameException {
+	private List<Expression> parseProcedureParameters() throws IOException, LexicalException, ParseException, UnknownVariableNameException {
 		if (readToken().isRightParentie()) {
 			return null;
 		}
@@ -294,7 +294,7 @@ public class Parser {
 		return parameters;
 	}
 
-	private Statement parseStatement() throws IOException, LexicalException, UnknowVariableNameException, ParseException, UnknowProcedureNameException, NotEnoughtParametersException {
+	private Statement parseStatement() throws IOException, LexicalException, UnknownVariableNameException, ParseException, UnknownProcedureNameException, NotEnoughtParametersException {
 		logger.debug(currentToken);
 
 		switch (currentToken.getType()) {
@@ -344,7 +344,7 @@ public class Parser {
 		}
 	}
 
-	private Statement parseWhile() throws IOException, ParseException, LexicalException, UnknowVariableNameException, UnknowProcedureNameException, NotEnoughtParametersException {
+	private Statement parseWhile() throws IOException, ParseException, LexicalException, UnknownVariableNameException, UnknownProcedureNameException, NotEnoughtParametersException {
 		Expression ex = parseExpression();
 
 		if (!readToken().isDo()) {
@@ -358,7 +358,7 @@ public class Parser {
 		return new While(ex, st);
 	}
 
-	private Statement parseIf() throws IOException, ParseException, LexicalException, UnknowVariableNameException, UnknowProcedureNameException, NotEnoughtParametersException {
+	private Statement parseIf() throws IOException, ParseException, LexicalException, UnknownVariableNameException, UnknownProcedureNameException, NotEnoughtParametersException {
 		Expression ex = parseExpression();
 
 		if (!readToken().isThen()) {
@@ -383,7 +383,7 @@ public class Parser {
 		return new If(ex,st1, st2);
 	}
 
-	private Statement parseFor() throws IOException, ParseException, LexicalException, UnknowVariableNameException, UnknowProcedureNameException, NotEnoughtParametersException {
+	private Statement parseFor() throws IOException, ParseException, LexicalException, UnknownVariableNameException, UnknownProcedureNameException, NotEnoughtParametersException {
 		readToken();
 
 		Statement assignmentStatement = parseStatement();
@@ -426,21 +426,21 @@ public class Parser {
 		}
 	}
 
-	private Variable checkAndReturnVariable(String name) throws UnknowVariableNameException {
+	private Variable checkAndReturnVariable(String name) throws UnknownVariableNameException {
 		Variable variable = getGlobalVariable(name);
 
 		if (variable == null) {
-			throw new UnknowVariableNameException(name + ":" + lexan.getLineNumber());
+			throw new UnknownVariableNameException(name + ":" + lexan.getLineNumber());
 		}
 
 		return variable;
 	}
 
-	private Procedure checkAndReturnProcedure(String name) throws UnknowProcedureNameException {
+	private Procedure checkAndReturnProcedure(String name) throws UnknownProcedureNameException {
 		Procedure procedure = getGlobalProcedure(name);
 
 		if (procedure == null) {
-			throw new UnknowProcedureNameException(name + ":" + lexan.getLineNumber());
+			throw new UnknownProcedureNameException(name + ":" + lexan.getLineNumber());
 		}
 
 		try {
@@ -463,7 +463,7 @@ public class Parser {
 		}
 	}
 
-	private Expression primaryExpression() throws IOException, LexicalException, UnknowVariableNameException, ParseException {
+	private Expression primaryExpression() throws IOException, LexicalException, UnknownVariableNameException, ParseException {
 		switch (readToken().getType()) {
 			case VAL_INTEGER:
 				logger.debug("parseExpression:interger value " + currentToken.getIntegerValue());
@@ -503,7 +503,7 @@ public class Parser {
 		throw new ParseException("value expected!", lexan.getLineNumber());
 	}
 
-	private Expression parseOperatorExpression() throws IOException, ParseException, LexicalException, UnknowVariableNameException {
+	private Expression parseOperatorExpression() throws IOException, ParseException, LexicalException, UnknownVariableNameException {
 		Expression ex = primaryExpression();
 
 		logger.debug(ex);
@@ -545,7 +545,7 @@ public class Parser {
 		return ex;
 	}
 
-	private Expression parseCompareExpression() throws IOException, LexicalException, UnknowVariableNameException, ParseException {
+	private Expression parseCompareExpression() throws IOException, LexicalException, UnknownVariableNameException, ParseException {
 		Expression ex = parseOperatorExpression();
 
 		logger.debug(ex);
@@ -591,7 +591,7 @@ public class Parser {
 		return ex;
 	}
 
-	private Expression parseExpression() throws IOException, LexicalException, UnknowVariableNameException, ParseException {
+	private Expression parseExpression() throws IOException, LexicalException, UnknownVariableNameException, ParseException {
 		Expression ex;
 		if (readToken().isNot()) {
 			ex = new NotOperator(parseCompareExpression());
@@ -635,7 +635,7 @@ public class Parser {
 		return ex;
 	}
 
-	private Statement parseAssigment(Variable variable) throws IOException, LexicalException, ParseException, UnknowVariableNameException {
+	private Statement parseAssigment(Variable variable) throws IOException, LexicalException, ParseException, UnknownVariableNameException {
 		Statement st = new Assignment(variable, parseExpression());
 
 		logger.debug("parseAssigment token:" + currentToken);
@@ -647,7 +647,7 @@ public class Parser {
 		return st;
 	}
 
-	public void parse() throws ParseException, IOException, LexicalException, UnknowVariableNameException, UnknowProcedureNameException, NotEnoughtParametersException {
+	public void parse() throws ParseException, IOException, LexicalException, UnknownVariableNameException, UnknownProcedureNameException, NotEnoughtParametersException {
 		boolean parsedAll = false;
 
 		while (!parsedAll) {
@@ -705,7 +705,7 @@ public class Parser {
 		this.tokenPushed = tokenPushed;
 	}
 
-	public void run() throws UnknowExpressionTypeException, NotUsableOperatorException {
+	public void run() throws UnknownExpressionTypeException, NotUsableOperatorException {
 		logger.debug("Executing entrypoint...");
 //		logger.debug(entryPoint);
 		entryPoint.execute();
