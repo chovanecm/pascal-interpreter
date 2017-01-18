@@ -2,13 +2,12 @@
 
 package cz.rank.pj.pascal.lexan;
 
+import cz.rank.pj.pascal.Token;
+import cz.rank.pj.pascal.TokenType;
 import org.apache.log4j.Logger;
 
 import java.io.*;
 import java.util.HashMap;
-
-import cz.rank.pj.pascal.Token;
-import cz.rank.pj.pascal.TokenType;
 
 /**
  * User: karl
@@ -18,22 +17,15 @@ import cz.rank.pj.pascal.TokenType;
 public class LexicalAnalyzator {
 	static final Logger logger;
 
-	public LineNumberReader getReader() {
-		return reader;
-	}
-
-	public void setReader(Reader reader) {
-		this.reader = new LineNumberReader(reader);
+	static {
+		logger = Logger.getLogger(LexicalAnalyzator.class);
 	}
 
 	public HashMap<String, TokenType> keywords;
-
 	LexicalAnalyzatorState state;
 	TokenType currentTokenType;
-
-	private LineNumberReader reader;
 	ByteArrayOutputStream tokenBuffer;
-
+	private LineNumberReader reader;
 	public LexicalAnalyzator() {
 		reader = null;
 		tokenBuffer = new ByteArrayOutputStream();
@@ -55,37 +47,6 @@ public class LexicalAnalyzator {
 		initKeywords();
 	}
 
-	protected void initKeywords() {
-		keywords = new HashMap<String, TokenType>();
-
-		keywords.put("if", TokenType.IF);
-		keywords.put("then", TokenType.THEN);
-		keywords.put("else", TokenType.ELSE);
-		keywords.put("program", TokenType.PROGRAM);
-		keywords.put("do", TokenType.DO);
-		keywords.put("while", TokenType.WHILE);
-		keywords.put("for", TokenType.FOR);
-		keywords.put("to", TokenType.TO);
-		keywords.put("downto", TokenType.DOWNTO);
-		keywords.put("var", TokenType.VAR);
-		keywords.put("type", TokenType.TYPE);
-		keywords.put("function", TokenType.FUNCTION);
-		keywords.put("procedure", TokenType.PROCEDURE);
-		keywords.put("begin", TokenType.BEGIN);
-		keywords.put("end", TokenType.END);
-		keywords.put("integer", TokenType.INTEGER);
-		keywords.put("string", TokenType.STRING);
-		keywords.put("real", TokenType.REAL);
-		keywords.put("and", TokenType.AND);
-		keywords.put("or", TokenType.OR);
-		keywords.put("not", TokenType.NOT);
-
-		logger.debug(keywords);
-	}
-
-	/* Maybe be better use static methods from Character
-	 */
-
 	static public boolean isIdBeginChar(int c) {
 		return (c >= 'a' && c <= 'z')
 				|| (c >= 'A' && c <= 'Z');
@@ -97,6 +58,9 @@ public class LexicalAnalyzator {
 				|| (c >= '0' && c <= '9')
 				|| c == '_';
 	}
+
+	/* Maybe be better use static methods from Character
+	 */
 
 	static public boolean isNumberChar(int c) {
 		return c >= '0' && c <= '9';
@@ -167,7 +131,7 @@ public class LexicalAnalyzator {
 	}
 
 	static public boolean isQuoteChar(int c) {
-		return c == '"';
+		return (c == '"' || c == '\'');
 	}
 
 	static public boolean isStarChar(int c) {
@@ -176,6 +140,42 @@ public class LexicalAnalyzator {
 
 	static public boolean isSlashChar(int c) {
 		return c == '/';
+	}
+
+	public LineNumberReader getReader() {
+		return reader;
+	}
+
+	public void setReader(Reader reader) {
+		this.reader = new LineNumberReader(reader);
+	}
+
+	protected void initKeywords() {
+		keywords = new HashMap<String, TokenType>();
+
+		keywords.put("if", TokenType.IF);
+		keywords.put("then", TokenType.THEN);
+		keywords.put("else", TokenType.ELSE);
+		keywords.put("program", TokenType.PROGRAM);
+		keywords.put("do", TokenType.DO);
+		keywords.put("while", TokenType.WHILE);
+		keywords.put("for", TokenType.FOR);
+		keywords.put("to", TokenType.TO);
+		keywords.put("downto", TokenType.DOWNTO);
+		keywords.put("var", TokenType.VAR);
+		keywords.put("type", TokenType.TYPE);
+		keywords.put("function", TokenType.FUNCTION);
+		keywords.put("procedure", TokenType.PROCEDURE);
+		keywords.put("begin", TokenType.BEGIN);
+		keywords.put("end", TokenType.END);
+		keywords.put("integer", TokenType.INTEGER);
+		keywords.put("string", TokenType.STRING);
+		keywords.put("real", TokenType.REAL);
+		keywords.put("and", TokenType.AND);
+		keywords.put("or", TokenType.OR);
+		keywords.put("not", TokenType.NOT);
+
+		logger.debug(keywords);
 	}
 
 	final void readToken() throws java.io.IOException, LexicalException {
@@ -533,10 +533,5 @@ public class LexicalAnalyzator {
 
 	public int getLineNumber() {
 		return reader.getLineNumber() + 1;
-	}
-
-
-	static {
-		logger = Logger.getLogger(LexicalAnalyzator.class);
 	}
 }

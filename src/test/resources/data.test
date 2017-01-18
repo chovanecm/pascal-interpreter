@@ -28,4 +28,5 @@ begin
         writeln(a);
      end;
   end;
+  writeln('String in apostrophes');
 end.
