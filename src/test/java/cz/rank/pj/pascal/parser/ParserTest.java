@@ -4,15 +4,13 @@ import cz.rank.pj.pascal.IntegerVariable;
 import cz.rank.pj.pascal.RealVariable;
 import cz.rank.pj.pascal.StringVariable;
 import cz.rank.pj.pascal.Variable;
-import junit.framework.TestCase;
 import cz.rank.pj.pascal.lexan.LexicalException;
+import junit.framework.TestCase;
+import org.apache.log4j.PropertyConfigurator;
 
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
-import java.io.IOException;
-import java.io.FileReader;
-
-import org.apache.log4j.PropertyConfigurator;
 
 /**
  * User: karl
@@ -24,6 +22,11 @@ public class ParserTest extends TestCase {
 
 	public ParserTest(String string) {
 		super(string);
+	}
+
+	public static void main(String[] args) {
+		PropertyConfigurator.configureAndWatch("log4j.properties");
+		junit.textui.TestRunner.run(ParserTest.class);
 	}
 
 	public void testProgram() {
@@ -231,7 +234,7 @@ public class ParserTest extends TestCase {
 		}
 	}
 
-	public void testParenties() {
+	public void testfParenties() {
 		parser = new Parser(new StringReader("var a  : integer;\nbegin a:=(1); \na :=(a); \nend."));
 
 		try {
@@ -300,7 +303,6 @@ public class ParserTest extends TestCase {
 			assertEquals("a", variable.getName());
 			assertTrue(variable instanceof IntegerVariable);
 			assertEquals(-49, (int) variable.getInteger());
-
 			variable = parser.getGlobalVariable("b");
 			assertEquals("b", variable.getName());
 			assertTrue(variable instanceof IntegerVariable);
@@ -872,10 +874,5 @@ public class ParserTest extends TestCase {
 			e.printStackTrace();
 			fail(e.getMessage());
 		}
-	}
-
-	public static void main(String[] args) {
-		PropertyConfigurator.configureAndWatch("log4j.properties");
-		junit.textui.TestRunner.run(ParserTest.class);
 	}
 }

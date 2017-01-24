@@ -4,73 +4,17 @@ package cz.rank.pj.pascal;
  * User: karl
  * Date: Jan 19, 2006
  * Time: 1:44:21 PM
+ *
+ * Updated Jan 24, 2017 by Martin Chovanec
+ * Added boolean
  */
 public class Token {
-	public TokenType getType() {
-		return type;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	private void setName(String name) {
-		this.name = name;
-	}
-
-	public Integer getIntegerValue() {
-		return integerValue;
-	}
-
-	public void setIntegerValue(Integer integerValue) {
-		this.integerValue = integerValue;
-	}
-
-	public Double getDoubleValue() {
-		return doubleValue;
-	}
-
-	public void setDoubleValue(Double doubleValue) {
-		this.doubleValue = doubleValue;
-	}
-
-	static Token createEmptyLexicalToken() {
-		return new Token();
-	}
-
-	public String getStringValue() {
-		return stringValue;
-	}
-
-	public void setStringValue(String stringValue) {
-		this.stringValue = stringValue;
-	}
-
-	public static Token createIdLexicalToken(String name) {
-		try {
-			return new Token(TokenType.ID, name);
-		} catch (WrongTokenTypeError e) {
-			/* empty */
-		}
-
-		return null;
-	}
-
-	public static Token createStringLexicalToken(String value) {
-		try {
-			return new Token(TokenType.VAL_STRING, value);
-		} catch (WrongTokenTypeError e) {
-			/* empty */
-		}
-
-		return null;
-	}
-
 	private final TokenType type;
 	private String name;
 	private Integer integerValue;
 	private Double doubleValue;
 	private String stringValue;
+	private Boolean booleanValue;
 
 	private Token() {
 		type = TokenType.EMPTY;
@@ -106,6 +50,79 @@ public class Token {
 	public Token(Double doubleValue) {
 		type = TokenType.VAL_DOUBLE;
 		setDoubleValue(doubleValue);
+	}
+
+	public Token(Boolean booleanValue) {
+		type = TokenType.VAL_BOOLEAN;
+		this.booleanValue = booleanValue;
+	}
+
+	static Token createEmptyLexicalToken() {
+		return new Token();
+	}
+
+	public static Token createIdLexicalToken(String name) {
+		try {
+			return new Token(TokenType.ID, name);
+		} catch (WrongTokenTypeError e) {
+			/* empty */
+		}
+
+		return null;
+	}
+
+	public static Token createStringLexicalToken(String value) {
+		try {
+			return new Token(TokenType.VAL_STRING, value);
+		} catch (WrongTokenTypeError e) {
+			/* empty */
+		}
+
+		return null;
+	}
+
+	public TokenType getType() {
+		return type;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	private void setName(String name) {
+		this.name = name;
+	}
+
+	public Integer getIntegerValue() {
+		return integerValue;
+	}
+
+	public void setIntegerValue(Integer integerValue) {
+		this.integerValue = integerValue;
+	}
+
+	public Double getDoubleValue() {
+		return doubleValue;
+	}
+
+	public void setDoubleValue(Double doubleValue) {
+		this.doubleValue = doubleValue;
+	}
+
+	public String getStringValue() {
+		return stringValue;
+	}
+
+	public void setStringValue(String stringValue) {
+		this.stringValue = stringValue;
+	}
+
+	public Boolean getBooleanValue() {
+		return booleanValue;
+	}
+
+	public void setBooleanValue(Boolean booleanValue) {
+		this.booleanValue = booleanValue;
 	}
 
 	public boolean isProgram() {

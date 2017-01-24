@@ -174,6 +174,8 @@ public class LexicalAnalyzator {
 		keywords.put("and", TokenType.AND);
 		keywords.put("or", TokenType.OR);
 		keywords.put("not", TokenType.NOT);
+        keywords.put("true", TokenType.VAL_BOOLEAN);
+        keywords.put("false", TokenType.VAL_BOOLEAN);
 
 		logger.debug(keywords);
 	}
@@ -525,7 +527,12 @@ public class LexicalAnalyzator {
 			case VAL_DOUBLE: {
 				return new Token(Double.parseDouble(tokenBuffer.toString()));
 			}
-			default: {
+            case VAL_BOOLEAN: {
+                String input = tokenBuffer.toString().toLowerCase();
+                boolean value = ("true".equals(input));
+                return new Token(value);
+            }
+            default: {
 				return new Token(tokenType);
 			}
 		}

@@ -1,14 +1,13 @@
 package cz.rank.pj.pascal.lexan;
 
-import junit.framework.TestCase;
 import cz.rank.pj.pascal.Token;
 import cz.rank.pj.pascal.TokenType;
-
-import java.io.StringReader;
-import java.io.IOException;
-import java.io.BufferedReader;
-
+import junit.framework.TestCase;
 import org.apache.log4j.PropertyConfigurator;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.StringReader;
 
 /**
  * User: karl
@@ -17,10 +16,19 @@ import org.apache.log4j.PropertyConfigurator;
  */
 
 public class LexicalAnalyzatorTest extends TestCase {
+	static {
+		PropertyConfigurator.configureAndWatch("log4j.properties");
+	}
+
 	private LexicalAnalyzator lexicalAnalyzator;
 
 	public LexicalAnalyzatorTest(String string) {
 		super(string);
+	}
+
+	public static void main(String[] args) {
+		PropertyConfigurator.configureAndWatch("log4j.properties");
+		junit.textui.TestRunner.run(LexicalAnalyzatorTest.class);
 	}
 
 	protected void setUp() throws Exception {
@@ -145,6 +153,36 @@ public class LexicalAnalyzatorTest extends TestCase {
 			Token token = lexicalAnalyzator.getNextToken();
 
 			assertEquals(123456.01, token.getDoubleValue());
+
+		} catch (IOException e) {
+			fail(e.getMessage());
+		} catch (LexicalException e) {
+			fail(e.getMessage());
+		}
+	}
+
+	public void testBooleanTrue() {
+		try {
+			lexicalAnalyzator.setReader(new BufferedReader(new StringReader("TRUE")));
+
+			Token token = lexicalAnalyzator.getNextToken();
+
+			assertEquals(true, (boolean) token.getBooleanValue());
+
+		} catch (IOException e) {
+			fail(e.getMessage());
+		} catch (LexicalException e) {
+			fail(e.getMessage());
+		}
+	}
+
+	public void testBooleanFalse() {
+		try {
+			lexicalAnalyzator.setReader(new BufferedReader(new StringReader("FALSE")));
+
+			Token token = lexicalAnalyzator.getNextToken();
+
+			assertEquals(false, (boolean) token.getBooleanValue());
 
 		} catch (IOException e) {
 			fail(e.getMessage());
@@ -281,14 +319,5 @@ public class LexicalAnalyzatorTest extends TestCase {
 		} catch (LexicalException e) {
 			fail(e.getMessage());
 		}
-	}
-
-	public static void main(String[] args) {
-		PropertyConfigurator.configureAndWatch("log4j.properties");
-		junit.textui.TestRunner.run(LexicalAnalyzatorTest.class);
-	}
-
-	static {
-		PropertyConfigurator.configureAndWatch("log4j.properties");
 	}
 }

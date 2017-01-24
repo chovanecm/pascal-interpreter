@@ -56,6 +56,7 @@ public enum TokenType {
 	VAL_INTEGER,
 	VAL_STRING,
 	VAL_DOUBLE,
+	VAL_BOOLEAN,
 	EOF,
 	DOT
 }
